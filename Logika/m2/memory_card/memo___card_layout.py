@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import (
         QHBoxLayout, QVBoxLayout, 
         QGroupBox, QButtonGroup, QRadioButton,  
         QPushButton, QLabel, QSpinBox)
-
+app = QApplication([])
 btn_menu = QPushButton('Меню')
 btn_sleep = QPushButton('Відпочити')
 btn_OK = QPushButton('Відповісти')
@@ -29,8 +29,8 @@ RadioGroup.addButton(rbtn_3)
 RadioGroup.addButton(rbtn_4)
 
 layout_ans1 = QHBoxLayout()
-layout_ans2 = QHBoxLayout()
-layout_ans3 = QHBoxLayout()
+layout_ans2 = QVBoxLayout()
+layout_ans3 = QVBoxLayout()
 
 layout_ans2.addWidget(rbtn_1)
 layout_ans2.addWidget(rbtn_2)
@@ -48,7 +48,7 @@ lb_Correct = QLabel('')
 
 
 layout_res = QVBoxLayout()
-layout_res.addWidget(lb_Result, alignment=(Qt.Alignleft | Qt.AlignTop))
+layout_res.addWidget(lb_Result, alignment=(Qt.AlignLeft | Qt.AlignTop))
 layout_res.addWidget(lb_Correct, alignment=Qt.AlignHCenter)
 AnsGroupBox.setLayout(layout_res)
 AnsGroupBox.hide()
@@ -60,38 +60,28 @@ layout_line4 = QHBoxLayout()
 
 layout_line1.addWidget(btn_menu)
 layout_line1.addStretch(1)
+layout_line1.addWidget(btn_sleep)
+layout_line1.addWidget(box_minutes)
+layout_line1.addWidget(QLabel('хвилин'))
 
+layout_line2.addWidget(lb_Question, alignment=(Qt.AlignHCenter))
 
+layout_line3.addWidget(RadioGroupBox)
+layout_line3.addWidget(AnsGroupBox)
 
+layout_line4.addStretch(1)
+layout_line4.addWidget(btn_OK)
+layout_line4.addStretch(1)
 
+layout_card = QVBoxLayout()
+layout_card.addLayout(layout_line1, stretch=1)
+layout_card.addLayout(layout_line2, stretch=2)
+layout_card.addLayout(layout_line3, stretch=8)
+layout_card.addStretch(1)
+layout_card.addLayout(layout_line4, stretch=1)
+layout_card.addStretch(1)
+layout_card.addSpacing(5)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# введення кількості хвилин
-# кнопка відповіді "Ок" / "Наступний"
-# текст питання
-
-# Опиши групу перемикачів
-
-# Опиши панень з результатами
-
-# Розмісти весь вміст в лейаути. Найбільшим лейаутом буде layout_card
-
-# Результат роботи цього модуля: віджети поміщені всередину layout_card, який можна призначити вікну.
 def show_result():
     ''' показати панель відповідей '''
     pass
