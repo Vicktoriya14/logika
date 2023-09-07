@@ -23,18 +23,56 @@ timer = QTimer()
 win_main = QWidget()
 win_card = QWidget()
 
+win_main.setStyleSheet('''
+                        background-color: BurlyWood;
+                        color: white;
+                        font-size: 20px;
+                        border: 2px solid brown; 
+                        ''')
+
+win_card.setStyleSheet('''
+                        background-color: pink;
+                        color: white;
+                        font-size: 20px;
+                        border: 2px solid blue; 
+                        ''')
+
+lb_Result.setStyleSheet('margin: 20')
 
 # Тестові данні
 def testlist():
-    frm = Question('Яблуко', 'apple', 'application', 'pinapple', 'apply')
+    frm = Question('Щасливий', 'happy', 'xoxo', 'pinapple', 'sun')
     questions_listmodel.form_list.append(frm)
-    frm = Question('Дім', 'house', 'horse', 'hurry', 'hour')
+    frm = Question('Оранжевий', 'orange', 'hurry', 'apple', 'hour')
     questions_listmodel.form_list.append(frm)
-    frm = Question('Мишка', 'mouse', 'mouth', 'muse', 'museum')
+    frm = Question('Черовоний', 'red', 'blue', 'good', 'sun')
     questions_listmodel.form_list.append(frm)
-    frm = Question('Число', 'number', 'digit', 'amount', 'summary')
+    frm = Question('Серце', 'heart', 'love', 'lol', 'pen')
+    questions_listmodel.form_list.append(frm)
+    frm = Question('Книжка', 'book', 'smart', 'cool', 'bad')
+    questions_listmodel.form_list.append(frm)
+    frm = Question('Квітка', 'flower', 'bag', 'screen', 'twice')
+    questions_listmodel.form_list.append(frm)
+    frm = Question('Далі', 'further', 'travel', 'apple', 'even')
     questions_listmodel.form_list.append(frm)
 
+
+
+win_main.setStyleSheet('''
+                        background-color: DarkBlue;
+                        color: white;
+                        font-size: 20px;
+                        border: 2px solid Pink; 
+                        ''')
+
+win_card.setStyleSheet('''
+                        background-color: Pink;
+                        color: white;
+                        font-size: 20px;
+                        border: 2px solid DarkBlue; 
+                        ''')
+
+lb_Result.setStyleSheet('margin: 20')
 # Функції для проведення тесту
 
 
