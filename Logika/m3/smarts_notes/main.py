@@ -37,11 +37,8 @@ col2 = QVBoxLayout()
 layout_notes.addLayout(col1, stretch=2)
 layout_notes.addLayout(col2, stretch=1)
 
-layout_notes.addLayout(col1)
-layout_notes.addLayout(col2)
 
 col1.addWidget(field_text)
-
 
 col2.addWidget(lb_notes)
 col2.addWidget(lst_notes)
@@ -59,14 +56,21 @@ window.setLayout(layout_notes)
 col2.addWidget(lb_notes_tegs)
 col2.addWidget(lst_notes_tegs)
 
+
+field_tag = QLineEdit()
+col2.addWidget(field_tag)
+
 row2 = QHBoxLayout()
 row2.addWidget(btn_note_add)
 row2.addWidget(btn_note_unpin)
 row2.addWidget(btn_note_search)
 
+
 col2.addLayout(row2)
 
 window.setLayout(layout_notes)
+
+
 
 
 with open('notes.json', 'r', encoding='utf-8') as file:
