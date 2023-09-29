@@ -76,8 +76,8 @@ def show_note():
     key = lst_notes.currentItem().text()
     field_text.setText(notes[key]['текст'])
 
-    lst_tags.clear()
-    lst_tags.addItems(notes[key]['теги'])
+    lst_notes_tegs.clear()
+    lst_notes_tegs.addItems(notes[key]['теги'])
 
 
 def add_note():
@@ -100,14 +100,14 @@ def del_note():
         del notes[key]
 
         field_text.clear()
-        lst_tags.clear()
+        lst_notes_tegs.clear()
         lst_notes.clear()
 
         lst_notes.addItems(notes)
         writeToFile()
 
 lst_notes.itemClicked.connect(show_note)
-btn_note_del.clicked.connect(del_note)
+btn_note_delet.clicked.connect(del_note)
 btn_note_creat.clicked.connect(add_note)
 btn_note_save.clicked.connect(save_note)
 
