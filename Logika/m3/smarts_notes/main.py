@@ -22,13 +22,14 @@ btn_note_delet = QPushButton('Видалити замітку')
 btn_note_save = QPushButton('Зберегти замітку')
 
 
-field_text = QTextEdit()
-lb_notes_tegs = QLabel('Список тегів')
-lst_notes_tegs = QListWidget()
+lb_tegs = QLabel('Список тегів')
+lst_tegs = QListWidget()
+field_tag = QLineEdit()
 
-btn_note_add = QPushButton('Додати до замітки')
-btn_note_unpin = QPushButton('Відкрити від замітки')
-btn_note_search = QPushButton('Шукати замітки за тегом')
+
+btn_tegs_add = QPushButton('Додати до замітки')
+btn_tegs_unpin = QPushButton('Відкрити від замітки')
+btn_tegs_search = QPushButton('Шукати замітки за тегом')
 
 layout_notes = QHBoxLayout()
 col1 = QVBoxLayout()
@@ -53,17 +54,17 @@ col2.addLayout(row1)
 window.setLayout(layout_notes)
 
 
-col2.addWidget(lb_notes_tegs)
-col2.addWidget(lst_notes_tegs)
+col2.addWidget(lb_tegs)
+col2.addWidget(lst_tegs)
 
 
 field_tag = QLineEdit()
 col2.addWidget(field_tag)
 
 row2 = QHBoxLayout()
-row2.addWidget(btn_note_add)
-row2.addWidget(btn_note_unpin)
-row2.addWidget(btn_note_search)
+row2.addWidget(btn_tegs_add)
+row2.addWidget(btn_tegs_unpin)
+row2.addWidget(btn_tegs_search)
 
 
 col2.addLayout(row2)
@@ -80,8 +81,8 @@ def show_note():
     key = lst_notes.currentItem().text()
     field_text.setText(notes[key]['текст'])
 
-    lst_notes_tegs.clear()
-    lst_notes_tegs.addItems(notes[key]['теги'])
+    lst_tegs.clear()
+    lst_tegs.addItems(notes[key]['теги'])
 
 
 def add_note():
@@ -104,18 +105,72 @@ def del_note():
         del notes[key]
 
         field_text.clear()
-        lst_notes_tegs.clear()
+        lst_tegs.clear()
         lst_notes.clear()
 
         lst_notes.addItems(notes)
         writeToFile()
+
+def add_tag():
+    key = lst_notes.currentItem().text()
+    tag = field_tag.text()
+
+    notes[key]['теги'].append(tag)
+
+    lst_tegs.addItem(tag)
+    field_tag.clear()
+
+    writeToFile()
+
+
+def del_tag():
+    key = lst_notes.currentItem().text()
+    tag = lst_tegs.currentItem().text()
+
+    notes[key]['теги'].remove(tag)
+
+    lst_tegs.clear()
+    lst_tegs.addItems(notes[key]['теги'])
+
+    writeToFile()
+
+def search_tag():
+    tag = field_tag.text()
+
+    if btn_tegs_search.text() == 'Шукати замітки за тегом':
+        filtered_notes = {}
+
+        for key in notes:
+            if tag in notes[key]['теги']:
+                filtered_notes[key] = notes[key]
+
+        btn_tegs_search.setText('скинути пошук')
+
+
+        lst_notes.clear()
+        lst_notes.addItems(filtered_notes)
+
+        field_text.clear()
+        lst_tegs.clear()
+    elif btn_tegs_search.text() == 'скинути пошук':
+        btn_tegs_search.setText('Шукати замітки за тегом')
+
+
+        field_text.clear()
+        lst_notes.clear()
+        lst_tegs.clear()
+        field_tag.clear()
+
+        lst_notes.addItems(notes)
 
 lst_notes.itemClicked.connect(show_note)
 btn_note_delet.clicked.connect(del_note)
 btn_note_creat.clicked.connect(add_note)
 btn_note_save.clicked.connect(save_note)
 
-
+btn_tegs_add.clicked.connect(add_tag)
+btn_tegs_unpin.clicked.connect(del_tag)
+btn_tegs_search.clicked.connect(search_tag)
 
 lst_notes.addItems(notes)
 
