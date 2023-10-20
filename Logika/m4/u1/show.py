@@ -8,7 +8,7 @@ class ImageEditor():
 
     def open(self):
         try:
-            self.original = Image.open('o.jpg')
+            self.original = Image.open('wknd.jpg')
             self.original.show()
         except:
             print('Файлу не існує')
@@ -31,6 +31,6 @@ class ImageEditor():
 
 
 
-img = ImageEditor('o.jpg')
+img = ImageEditor('wknd.jpg')
 img.open
 img.do_crop()
