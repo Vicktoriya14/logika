@@ -12,7 +12,7 @@ window = QWidget()
 
 btn_folder = QPushButton('Папка')
 btn_left = QPushButton('Вліво')
-btn_right = QPushButton('Впріво')
+btn_right = QPushButton('Вправо')
 btn_flip = QPushButton('Дзеркало')
 btn_sharp = QPushButton('Різкість')
 btn_bw = QPushButton('Ч/Б')
