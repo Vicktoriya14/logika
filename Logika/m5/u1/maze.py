@@ -81,10 +81,10 @@ window = display.set_mode((win_widht, win_height))
 background = scale(load('background.jpg'), (win_widht, win_height))
 
 
-wall_1 = Wall(1, 20, 45, 15)
-wall_2 = Wall(3, 45, 67, 23)
-wall_3 = Wall(3, 45, 67, 23)
-wall_4 = Wall(3, 45, 67, 23)
+wall_1 = Wall(179, 21, 888, 17)
+wall_2 = Wall(179, 360, 234, 17)
+wall_3 = Wall(173, 321, 234, 17)
+wall_4 = Wall(179, 455, 389, 17)
 
 player = Player("hero.png", 5, win_height - 80, 4 )
 monster = Enemy("cyborg.png", win_widht - 120, win_height - 280, 2)
