@@ -30,7 +30,10 @@ class Player(GameSprite):
             self.rect.x += self.speed
 
     def fire(self):
-        pass
+        bullet = Bullet('bullet.png', self.rect.centerx, self.rect.top, 15, 30, 15)
+        bullets.add(bullet)
+
+
 
 
 class Enemy(GameSprite):
@@ -42,6 +45,12 @@ class Enemy(GameSprite):
            self.rect.x=randint(80, win_widht-80)
            lost = lost + 1
 
+class Bullet(GameSprite):
+    def update(self):
+        self.rect.y -= self.speed
+
+b1 = Bullet('bullet.png', 350, 350, 15, 30, 3)
+
 
 mixer.init()
 mixer.music.load('space.ogg')
@@ -52,8 +61,6 @@ font.init()
 font1 = font.SysFont('Arial', 36)
 
 
-
-
 win_widht = 700
 win_height = 500
 
@@ -61,6 +68,11 @@ window = display.set_mode((win_widht, win_height))
 background = scale(load('galaxy.jpg'), (win_widht, win_height))
 
 ship = Player('rocket.png', 5, win_height-80, 80, 100, 4)
+
+bullets = sprite.Group()
+
+
+
 
 monsters = sprite.Group()
 for i in range(5):
@@ -77,19 +89,31 @@ while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
+        if e.type == KEYDOWN:
+            if e.key == K_SPACE:
+                ship.fire()
+
+
 
     if not finish:
         window.blit(background, (0, 0))
         txt_lose = font1.render(f'Пропущено: {lost}', True, (255, 255, 255))
         window.blit(txt_lose, (10, 50))
 
+        txt_win = font1.render(f'Рахунок: {score}', True, (255, 255, 255))
+        window.blit(txt_win, (10, 10))
 
-
-
-
-        ship.reset()
         monsters.draw(window)
         monsters.update()
+
+
+
+        bullets.draw(window)
+        bullets.update()
+ 
+
+        ship.reset()
+        
 
 
         ship.update()
