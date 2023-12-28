@@ -60,6 +60,9 @@ mixer.music.set_volume(0.01)
 font.init()
 font1 = font.SysFont('Arial', 36)
 
+font2 = font.SysFont('Arial', 80) 
+txt_lose_game = font2.render('Ти програв!', True, (200, 0, 0))
+txt_win_game = font2.render('Ти виграв!', True, (0, 200, 50))
 
 win_widht = 700
 win_height = 500
@@ -110,14 +113,47 @@ while game:
 
         bullets.draw(window)
         bullets.update()
- 
 
         ship.reset()
-        
-
-
         ship.update()
- 
+
+        if sprite.spritecollide(ship, monsters, False):
+            finish = True
+            window.blit(txt_lose_game, (200, 200))
+           
+
+
+        collied = sprite.groupcollide(monsters, bullets, True, True)
+        for c in collied:
+            mon = Enemy('ufo.png', randint(0, win_widht-80), 0, 80, 50, randint(1, 5))
+            monsters.add(mon)
+            score = score + 1
+
+
+        if score == 5:
+            finish = True
+            window.blit(txt_win_game, (200, 200))
+
+    else:
+        finish = False
+        score = 0
+        lost = 0
+        
+        for b in bullets:
+            b.kill()
+
+        for m in monsters:
+            m.kill()
+
+
+        time.delay(3000)
+        for i in range(5):
+            mon = Enemy('ufo.png', randint(0, win_widht-80), 0, 80, 50, randint(1, 5))
+            monsters.add(mon)
+
+
+
+
     display.update()
     clock.tick(FPS)
 
