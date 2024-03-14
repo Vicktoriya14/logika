@@ -50,13 +50,17 @@ class Walls(GameSprite):
 walls_cordinates = [
 
                   [0,0,4000,20],
-                  [0,1,30,100],
-                  [0,220,30,450],
+                  [0,1,10,100],
+                  [0,220,10,450],
                   [0,96,150,10],
-                  [0,205,77,16],
+                  [0,205,70,16],
                   [66,300,90,10],
-                  [66,205,20,100],
-                  [135,96,20,90],
+                  [66,205,10,100],
+                  [140,96,10,90],
+                  [90,400,70,10],
+                  [66,170,10,100],
+                  [66,378,10,200],
+                  
 
 
                 
@@ -65,7 +69,7 @@ walls_cordinates = [
 walls=[]   
 
 for w in walls_cordinates:
-    wall = Walls(w[0],w[1],w[2],w[3],(10,88,90))
+    wall = Walls(w[0],w[1],w[2],w[3],(224,255,255))
     walls.append(wall)
 
 
@@ -78,6 +82,11 @@ class Player(GameSprite):
             self.rect.x -= self.speed
         if keys[K_RIGHT] and self.rect.x < win_widht - 80:
             self.rect.x += self.speed
+        if keys [K_UP] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        
+        if keys [K_DOWN] and self.rect.y < win_height - 80:
+            self.rect.y += self.speed
 
 class Enemy(GameSprite):
     def update(self):
@@ -88,15 +97,14 @@ class Enemy(GameSprite):
            self.rect.x=randint(80, win_widht-80)
            lost = lost + 1
 
-class Bullet(GameSprite):
-    def update(self):
-        self.rect.y -= self.speed
+
+
 
 
 window = display.set_mode((win_widht, win_height))
 background = scale(load('images.jpg'), (win_widht, win_height))
 
-ship = Player('uou.png', 5, win_height-60, 60, 100, 4)
+ship = Player('uou.png', 10, win_height-60, 50, 50, 4)
 
 while game:
     for e in event.get():
@@ -111,6 +119,7 @@ while game:
 
     ship.reset()
     ship.update()
+
 
     display.update()
     clock.tick(FPS)
