@@ -57,9 +57,16 @@ walls_cordinates = [
                   [66,300,90,10],
                   [66,205,10,100],
                   [140,96,10,90],
-                  [90,400,70,10],
+                  [66,420,70,10],
                   [66,170,10,100],
                   [66,378,10,200],
+                  [200,350,70,10],
+                  [270,350,10,50],
+                  [280,390,70,10],
+                  [0,487,4000,20],
+
+                  
+
                   
 
 
@@ -69,8 +76,10 @@ walls_cordinates = [
 walls=[]   
 
 for w in walls_cordinates:
-    wall = Walls(w[0],w[1],w[2],w[3],(224,255,255))
+    wall = Walls(w[0],w[1],w[2],w[3],(225,255,255))
     walls.append(wall)
+
+
 
 
 
@@ -80,12 +89,12 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_LEFT] and self.rect.x > 5:
             self.rect.x -= self.speed
-        if keys[K_RIGHT] and self.rect.x < win_widht - 80:
+        if keys[K_RIGHT] and self.rect.x < win_widht - 60:
             self.rect.x += self.speed
         if keys [K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
         
-        if keys [K_DOWN] and self.rect.y < win_height - 80:
+        if keys [K_DOWN] and self.rect.y < win_height - 60:
             self.rect.y += self.speed
 
 class Enemy(GameSprite):
@@ -98,13 +107,25 @@ class Enemy(GameSprite):
            lost = lost + 1
 
 
-
+mo1 =GameSprite('mo.png', 10,50,30,30,0)
+mo2 =GameSprite('mo.png', 15,165,30,30,0)
+mo3 =GameSprite('mo.png', 80,450,30,30,0)
+mo4 =GameSprite('mo.png', 500,450,30,30,0)
+mo5 =GameSprite('mo.png', 500,100,30,30,0)
+mo6 =GameSprite('mo.png', 370,300,30,30,0)
+mo7 =GameSprite('mo.png', 500,450,30,30,0)
 
 
 window = display.set_mode((win_widht, win_height))
 background = scale(load('images.jpg'), (win_widht, win_height))
 
 ship = Player('uou.png', 10, win_height-60, 50, 50, 4)
+
+
+
+font.init()
+font1 = font.SysFont('Arial', 36)
+
 
 while game:
     for e in event.get():
@@ -115,6 +136,22 @@ while game:
         w.draw()
         w.draw()
         w.draw()
+
+
+
+
+
+        if not finish:
+            txt_win = font1.render(f'score: {score}', True, (255, 255, 255))
+            window.blit(txt_win, (460, 16))
+
+        mo1.reset()
+        mo2.reset()
+        mo3.reset()
+        mo4.reset()
+        mo5.reset()
+        mo6.reset()
+        mo7.reset()
 
 
     ship.reset()
