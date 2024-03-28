@@ -39,7 +39,7 @@ class GameSprite(sprite.Sprite):
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
-class Walls(GameSprite):
+class Walls(sprite.Sprite):
     def __init__(self,x,y,w,h,fill_color):
         self.rect = Rect(x,y,w,h)
         self.fill_color = fill_color
@@ -73,11 +73,11 @@ walls_cordinates = [
                 
 ]
 
-walls=[]   
+walls=sprite.Group()  
 
 for w in walls_cordinates:
     wall = Walls(w[0],w[1],w[2],w[3],(225,255,255))
-    walls.append(wall)
+    walls.add(wall)
 
 
 
@@ -89,13 +89,21 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_LEFT] and self.rect.x > 5:
             self.rect.x -= self.speed
+            if sprite.spritecollide(self,walls,False):
+                self.rect.y += self.speed
         if keys[K_RIGHT] and self.rect.x < win_widht - 60:
             self.rect.x += self.speed
+            if sprite.spritecollide(self,walls,False):
+                self.rect.x -= self.speed
         if keys [K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
+            if sprite.spritecollide(self,walls,False):
+                self.rect.y += self.speed
         
         if keys [K_DOWN] and self.rect.y < win_height - 60:
             self.rect.y += self.speed
+            if sprite.spritecollide(self,walls,False):
+                self.rect.x -= self.speed
 
 class Enemy(GameSprite):
     def update(self):
@@ -125,7 +133,14 @@ ship = Player('uou.png', 10, win_height-60, 50, 50, 4)
 
 font.init()
 font1 = font.SysFont('Arial', 36)
-
+coins = sprite.Group()
+coins.add(mo1)
+coins.add(mo2)
+coins.add(mo3)
+coins.add(mo4)
+coins.add(mo5)
+coins.add(mo6)
+coins.add(mo7)
 
 while game:
     for e in event.get():
@@ -137,7 +152,11 @@ while game:
         w.draw()
         w.draw()
 
+        if sprite.spritecollide(ship, coins, True):
+            score+=1
 
+     
+     
 
 
 
@@ -145,13 +164,8 @@ while game:
             txt_win = font1.render(f'score: {score}', True, (255, 255, 255))
             window.blit(txt_win, (460, 16))
 
-        mo1.reset()
-        mo2.reset()
-        mo3.reset()
-        mo4.reset()
-        mo5.reset()
-        mo6.reset()
-        mo7.reset()
+
+        coins.draw(window)
 
 
     ship.reset()
