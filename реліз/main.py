@@ -64,6 +64,8 @@ walls_cordinates = [
                   [270,350,10,50],
                   [280,390,70,10],
                   [0,487,4000,20],
+                  [350,240,10,160],
+                  [200,460,10,160],
 
                   
 
@@ -73,14 +75,17 @@ walls_cordinates = [
                 
 ]
 
-walls=sprite.Group()  
+walls=[]
 
 for w in walls_cordinates:
     wall = Walls(w[0],w[1],w[2],w[3],(225,255,255))
-    walls.add(wall)
+    walls.append(wall)
 
 
-
+def check_collide(obj,target_group):
+    for target in target_group:
+        if obj.rect.colliderect(target):
+            return True
 
 
 
@@ -89,22 +94,22 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_LEFT] and self.rect.x > 5:
             self.rect.x -= self.speed
-            if sprite.spritecollide(self,walls,False):
-                self.rect.y += self.speed
+            if check_collide(self,walls,False):
+                self.rect.y -= self.speed
         if keys[K_RIGHT] and self.rect.x < win_widht - 60:
             self.rect.x += self.speed
-            if sprite.spritecollide(self,walls,False):
-                self.rect.x -= self.speed
+            if check_collide(self,walls,False):
+                self.rect.y += self.speed
         if keys [K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
-            if sprite.spritecollide(self,walls,False):
-                self.rect.y += self.speed
+            if check_collide(self,walls,False):
+                self.rect.y -= self.speed
         
         if keys [K_DOWN] and self.rect.y < win_height - 60:
             self.rect.y += self.speed
-            if sprite.spritecollide(self,walls,False):
-                self.rect.x -= self.speed
-
+            if check_collide(self,walls,False):
+                self.rect.y += self.speed
+                
 class Enemy(GameSprite):
     def update(self):
         self.rect.y += self.speed
@@ -122,6 +127,8 @@ mo4 =GameSprite('mo.png', 500,450,30,30,0)
 mo5 =GameSprite('mo.png', 500,100,30,30,0)
 mo6 =GameSprite('mo.png', 370,300,30,30,0)
 mo7 =GameSprite('mo.png', 500,450,30,30,0)
+mo8 =GameSprite('mo.png', 300,350,30,30,0)
+
 
 
 window = display.set_mode((win_widht, win_height))
@@ -141,6 +148,7 @@ coins.add(mo4)
 coins.add(mo5)
 coins.add(mo6)
 coins.add(mo7)
+coins.add(mo8)
 
 while game:
     for e in event.get():
