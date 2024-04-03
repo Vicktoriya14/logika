@@ -65,7 +65,20 @@ walls_cordinates = [
                   [280,390,70,10],
                   [0,487,4000,20],
                   [350,240,10,160],
-                  [200,460,10,160],
+                  [200,460,10,220],
+                  [480,330,10,160],
+                  [430,360,55,10],
+                  [560,400,55,10],
+                  [350,280,70,10],
+                  [420,130,10,160],
+                  [500,200,100,10],
+                  [528,130,10,100],
+                  [595,0,10,400],
+                  [150,176,100,10],
+                  [528,130,10,100],
+                 
+                  
+                  
 
                   
 
@@ -94,21 +107,21 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_LEFT] and self.rect.x > 5:
             self.rect.x -= self.speed
-            if check_collide(self,walls,False):
-                self.rect.y -= self.speed
+            if check_collide(self,walls):
+                self.rect.x += self.speed
         if keys[K_RIGHT] and self.rect.x < win_widht - 60:
             self.rect.x += self.speed
-            if check_collide(self,walls,False):
-                self.rect.y += self.speed
+            if check_collide(self,walls):
+                self.rect.x -= self.speed
         if keys [K_UP] and self.rect.y > 5:
             self.rect.y -= self.speed
-            if check_collide(self,walls,False):
-                self.rect.y -= self.speed
+            if check_collide(self,walls):
+                self.rect.y += self.speed
         
         if keys [K_DOWN] and self.rect.y < win_height - 60:
             self.rect.y += self.speed
-            if check_collide(self,walls,False):
-                self.rect.y += self.speed
+            if check_collide(self,walls):
+                self.rect.y -= self.speed
                 
 class Enemy(GameSprite):
     def update(self):
@@ -128,11 +141,18 @@ mo5 =GameSprite('mo.png', 500,100,30,30,0)
 mo6 =GameSprite('mo.png', 370,300,30,30,0)
 mo7 =GameSprite('mo.png', 500,450,30,30,0)
 mo8 =GameSprite('mo.png', 300,350,30,30,0)
+mo9 =GameSprite('mo.png', 440,380,30,30,0)
+mo10 =GameSprite('mo.png', 160,130,30,30,0)
+mo11 =GameSprite('mo.png', 550,170,30,30,0)
 
 
 
 window = display.set_mode((win_widht, win_height))
 background = scale(load('images.jpg'), (win_widht, win_height))
+
+font.init()
+font1 = font.Font(None, 80)
+win = font1.render('YOU WIN!', True, (160, 0, 0))
 
 ship = Player('uou.png', 10, win_height-60, 50, 50, 4)
 
@@ -149,6 +169,12 @@ coins.add(mo5)
 coins.add(mo6)
 coins.add(mo7)
 coins.add(mo8)
+coins.add(mo9)
+coins.add(mo10)
+coins.add(mo11)
+
+
+
 
 while game:
     for e in event.get():
@@ -174,6 +200,10 @@ while game:
 
 
         coins.draw(window)
+
+        if score ==10: 
+             finish = True
+             window.blit(win,(200,200))
 
 
     ship.reset()
