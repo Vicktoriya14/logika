@@ -11,7 +11,7 @@ from ursina.shaders import basic_lighting_shader
 app = Ursina()
 from settings import *
 
-from models import Block
+from models import Block, WorldEdit
 
 
 player = FirstPersonController()
