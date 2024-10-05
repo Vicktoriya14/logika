@@ -21,8 +21,9 @@ sky = Sky(texture='sky_sunset')
 light = DirectionalLight(shadows=True,)
 light.look_at(Vec3(1,-1,1))
 
-world = WorldEdit()
+world = WorldEdit(player)
 world.generate_world()
+
 
 #scene.fog_density = (5, 50)   # sets linear density start and end
 
